@@ -36,7 +36,8 @@ RUN \
   && echo "AllowRoot=1" >> /etc/zabbix/zabbix_agentd.conf \
   && echo "LogType=console" >> /etc/zabbix/zabbix_agentd.conf \
   && echo "LoadModule=libzbxpython.so" > /etc/zabbix/zabbix_agentd.d/libzbxpython.conf \
-  && mkdir -p /var/run/zabbix
+  && mkdir -p /var/run/zabbix \
+  && mkdir -p /var/lib/zabbix/modules/python
 
 COPY entrypoint.sh /entrypoint.sh
 

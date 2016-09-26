@@ -1,4 +1,11 @@
+PYTHON_VERSION = 3.4
+
 DOCKER_RUN = docker run -it --rm \
+	-e "PYTHON_VERSION=$(PYTHON_VERSION)" \
+	-v $(PWD):/usr/src
+
+DOCKER_DAEMON = docker run -d \
+	-e "PYTHON_VERSION=$(PYTHON_VERSION)" \
 	-v $(PWD):/usr/src
 
 all: docker-build
@@ -12,6 +19,9 @@ docker-build:
 docker-release:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie release
 
+docker-test:
+	$(DOCKER_RUN) libzbxpython/build-debian-jessie test
+
 docker-shell:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie /bin/bash
 
@@ -23,10 +33,8 @@ docker-agent:
 
 docker-agent-shell:
 	docker rm -f zabbix_agent || :
-	docker run \
+	$(DOCKER_DAEMON) \
 		--name zabbix_agent \
-		-d \
-		-v $(PWD):/usr/src \
 		-p 10050:10050 \
 		libzbxpython/build-debian-jessie agent
 	sleep 2
