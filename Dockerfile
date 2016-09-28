@@ -1,6 +1,9 @@
 FROM debian:jessie
 
+# configure apt
 ENV DEBIAN_FRONTEND noninteractive
+
+COPY sources.list /etc/apt/sources.list
 
 # install build tools
 RUN apt-get update && apt-get install -y \
@@ -13,8 +16,7 @@ RUN apt-get update && apt-get install -y \
   m4 \
   make \
   python3 \
-  python3-dev \
-  valgrind
+  python3-dev
 
 # install zabbix agent
 RUN \

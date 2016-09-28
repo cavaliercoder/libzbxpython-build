@@ -1,0 +1,3 @@
+# apologies to distant developers
+deb http://mirror.aarnet.edu.au/debian/ jessie main
+deb http://mirror.aarnet.edu.au/debian/ jessie-updates main

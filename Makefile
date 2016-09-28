@@ -2,16 +2,36 @@ PYTHON_VERSION = 3.4
 
 DOCKER_RUN = docker run -it --rm \
 	-e "PYTHON_VERSION=$(PYTHON_VERSION)" \
+	-e "http_proxy=$(http_proxy)" \
+	-e "https_proxy=$(https_proxy)" \
+	-e "no_proxy=$(no_proxy)" \
+	-e "HTTP_PROXY=$(HTTP_PROXY)" \
+	-e "HTTPS_PROXY=$(HTTPS_PROXY)" \
+	-e "NO_PROXY=$(NO_PROXY)" \
 	-v $(PWD):/usr/src
 
 DOCKER_DAEMON = docker run -d \
 	-e "PYTHON_VERSION=$(PYTHON_VERSION)" \
+	-e "http_proxy=$(http_proxy)" \
+	-e "https_proxy=$(https_proxy)" \
+	-e "no_proxy=$(no_proxy)" \
+	-e "HTTP_PROXY=$(HTTP_PROXY)" \
+	-e "HTTPS_PROXY=$(HTTPS_PROXY)" \
+	-e "NO_PROXY=$(NO_PROXY)" \
 	-v $(PWD):/usr/src
 
 all: docker-build
 
 docker-image:
-	docker build -t libzbxpython/build-debian-jessie .
+	docker build \
+		--build-arg "http_proxy=$(http_proxy)" \
+		--build-arg "https_proxy=$(https_proxy)" \
+		--build-arg "no_proxy=$(no_proxy)" \
+		--build-arg "HTTP_PROXY=$(HTTP_PROXY)" \
+		--build-arg "HTTPS_PROXY=$(HTTPS_PROXY)" \
+		--build-arg "NO_PROXY=$(NO_PROXY)" \
+		-t libzbxpython/build-debian-jessie \
+		.
 
 docker-build:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie make
