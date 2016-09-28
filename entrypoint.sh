@@ -34,6 +34,10 @@ case $1 in
     zabbix_agentd -p | grep ^python
     ;;
     
+  "bench")
+    zabbix_agent_bench -threads 4 -keys /usr/src/zabbix_agent_bench.keys 
+    ;;
+    
   *)
     exec $@
     ;;
