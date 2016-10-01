@@ -4,3 +4,4 @@ python.version
 python.ping
 python.echo[hello,world]
 python.random[1,1000]
+python.discovery
