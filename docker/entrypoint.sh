@@ -11,6 +11,7 @@ make_install() {
 
 case $1 in
   "reconf")
+    [[ -f Makefile ]] && make distclean
     ./autogen.sh \
       && ./configure \
         --libdir=/usr/lib/zabbix/modules \
