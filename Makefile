@@ -20,7 +20,8 @@ DOCKER_DAEMON = docker run -d \
 	-e "NO_PROXY=$(NO_PROXY)" \
 	-v $(PWD):/usr/src
 
-all: docker-build
+all:
+	$(DOCKER_RUN) libzbxpython/build-debian-jessie make
 
 docker-image:
 	docker build \
@@ -33,25 +34,25 @@ docker-image:
 		-t libzbxpython/build-debian-jessie \
 		.
 
-docker-build:
-	$(DOCKER_RUN) libzbxpython/build-debian-jessie make
+reconf:
+	$(DOCKER_RUN) libzbxpython/build-debian-jessie reconf
 
-docker-release:
-	$(DOCKER_RUN) libzbxpython/build-debian-jessie release
+dist:
+	$(DOCKER_RUN) libzbxpython/build-debian-jessie make dist
 
-docker-test:
+test:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie test
 
-docker-shell:
+shell:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie /bin/bash
 
-docker-agent:
+agent:
 	$(DOCKER_RUN) \
 		--name zabbix_agent \
 		-p 10050:10050 \
 		libzbxpython/build-debian-jessie agent
 
-docker-agent-shell:
+agent-shell:
 	docker rm -f zabbix_agent || :
 	$(DOCKER_DAEMON) \
 		--name zabbix_agent \

@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   gcc \
   gdb \
   libtool \
+  lsof \
   m4 \
   make \
   python3 \
@@ -34,12 +35,9 @@ RUN curl -LO https://sourceforge.net/projects/zabbixagentbench/files/linux/zabbi
 
 # configure agent module
 RUN \
-  echo "LoadModulePath=/usr/src/libzbxpython/src/.libs" >> /etc/zabbix/zabbix_agentd.conf \
-  && echo "AllowRoot=1" >> /etc/zabbix/zabbix_agentd.conf \
+  echo "AllowRoot=1" >> /etc/zabbix/zabbix_agentd.conf \
   && echo "LogType=console" >> /etc/zabbix/zabbix_agentd.conf \
-  && echo "LoadModule=libzbxpython.so" > /etc/zabbix/zabbix_agentd.d/libzbxpython.conf \
-  && mkdir -p /var/run/zabbix \
-  && mkdir -p /var/lib/zabbix/modules/python
+  && mkdir -p /var/run/zabbix
 
 COPY entrypoint.sh /entrypoint.sh
 

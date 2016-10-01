@@ -1,29 +1,26 @@
 #!/bin/bash
+export PYTHON_VERSION=3
 export PYTHONPATH=/usr/src/libzbxpython/lib
 
-# link module path
-rm -r /var/lib/zabbix/modules/python
-ln -s /usr/src/libzbxpython/lib /var/lib/zabbix/modules/python
+cd /usr/src/libzbxpython
+
+make_install() {
+  make install || exit 1
+  ln -s /usr/src/libzbxpython/lib /usr/lib/zabbix/modules/python3
+}
 
 case $1 in
-  "release")
-    export PYTHON_VERSION=3.4
-    cd /usr/src/libzbxpython
+  "reconf")
     ./autogen.sh \
       && ./configure \
-        --enable-debug \
+        --libdir=/usr/lib/zabbix/modules \
         --with-zabbix=/usr/src/zabbix-3.2.0 \
-      && make dist \
-      && make \
+        --with-zabbix-conf=/etc/zabbix \
       || exit 1
     ;;
 
-  "make")
-    cd /usr/src/libzbxpython
-    make || exit 1
-    ;;
-
   "agent")
+    make_install
     /usr/sbin/zabbix_agentd \
       --config=/etc/zabbix/zabbix_agentd.conf \
       --foreground \
@@ -31,6 +28,7 @@ case $1 in
     ;;
 
   "test")
+    make_install
     zabbix_agentd -p | grep ^python
     ;;
     
