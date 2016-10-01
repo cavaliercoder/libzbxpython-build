@@ -1,5 +1,6 @@
 #!/bin/bash
 export PYTHON_VERSION=3
+export ZABBIX_HEADERS=/usr/src/zabbix-3.2.0
 
 cd /usr/src/libzbxpython
 
@@ -46,7 +47,10 @@ case $1 in
 
     # build
     cd /tmp/zabbix-module-python-1.0.0/
-    debuild -us -uc
+    debuild \
+      -e ZABBIX_HEADERS \
+      -e PYTHON_VERSION \
+      -us -uc || exit 1
 
     # copy of container
     cp -v /tmp/zabbix-module-python_1.0.0-1_amd64.deb /usr/src/

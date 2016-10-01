@@ -1,9 +1,16 @@
 #!/usr/bin/make -f
 
+export PYTHON_VERSION
+
+ZABBIX_HEADERS ?= /usr/src/zabbix
+
+include /usr/share/dpkg/default.mk
 %:
 	dh $@ 
 
+# configure sources with zabbix agent defaults
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		--libdir=/usr/lib/zabbix/modules \
-		--with-zabbix-conf=/etc/zabbix
+		--with-zabbix-conf=/etc/zabbix \
+		--with-zabbix=$(ZABBIX_HEADERS)
