@@ -53,7 +53,13 @@ case $1 in
       -us -uc || exit 1
 
     # copy of container
-    cp -v /tmp/zabbix-module-python_1.0.0-1_amd64.deb /usr/src/
+    cp -v /tmp/*.deb /usr/src/libzbxpython/
+
+    # install and test
+    dpkg-deb -I ../zabbix-module-python_1.0.0-1_amd64.deb
+    dpkg-deb -c ../zabbix-module-python_1.0.0-1_amd64.deb
+    dpkg -i ../zabbix-module-python_1.0.0-1_amd64.deb
+    zabbix_agentd -p | grep ^python
     ;;
     
   *)

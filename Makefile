@@ -12,7 +12,7 @@ DOCKER_DAEMON = docker run -d \
 	-e "HTTPS_PROXY=$(HTTPS_PROXY)" \
 	-v $(PWD):/usr/src
 
-all: docker-image reconf module dist
+all: docker-image reconf module dist package-deb
 
 # build docker image
 docker-image:
