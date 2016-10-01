@@ -1,2 +1,6 @@
-zabbix-*/
+*.deb
+*.gz
+*.rpm
+*.xz
 libzbxpython/
+zabbix-*/

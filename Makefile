@@ -1,19 +1,15 @@
 DOCKER_RUN = docker run -it --rm \
 	-e "http_proxy=$(http_proxy)" \
 	-e "https_proxy=$(https_proxy)" \
-	-e "no_proxy=$(no_proxy)" \
 	-e "HTTP_PROXY=$(HTTP_PROXY)" \
 	-e "HTTPS_PROXY=$(HTTPS_PROXY)" \
-	-e "NO_PROXY=$(NO_PROXY)" \
 	-v $(PWD):/usr/src
 
 DOCKER_DAEMON = docker run -d \
 	-e "http_proxy=$(http_proxy)" \
 	-e "https_proxy=$(https_proxy)" \
-	-e "no_proxy=$(no_proxy)" \
 	-e "HTTP_PROXY=$(HTTP_PROXY)" \
 	-e "HTTPS_PROXY=$(HTTPS_PROXY)" \
-	-e "NO_PROXY=$(NO_PROXY)" \
 	-v $(PWD):/usr/src
 
 all: docker-image reconf build dist
@@ -33,6 +29,9 @@ build:
 # build distribution tarball
 dist:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie make dist
+
+package-deb:
+	$(DOCKER_RUN) libzbxpython/build-debian-jessie deb
 
 # test agent keys with `zabbix_agentd -p`
 test:

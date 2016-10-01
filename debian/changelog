@@ -1,0 +1,5 @@
+zabbix-module-python (1.0.0-1) stable; urgency=low
+
+  * Initial release
+
+ -- Ryan Armstrong <ryan@cavaliercoder.com>  Sat, 01 Oct 2016 09:05:05 +0000

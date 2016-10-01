@@ -1,0 +1,14 @@
+Source: zabbix-module-python
+Priority: optional
+Maintainer: Ryan Armstrong <ryan@cavaliercoder.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Section: misc
+Homepage: <https://github.com/cavaliercoder/libzbxpython>
+
+Package: zabbix-module-python
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Embedded Python interpreter module for Zabbix
+ This native Zabbix module allows you to write extensions for Zabbix in Python
+ and run them embedded in the Zabbix agent, server or proxy.
