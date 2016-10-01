@@ -1,5 +1,5 @@
 # test keys for zabbix_agent_bench
-
+python.modver
 python.version
 python.ping
 python.echo[hello,world]

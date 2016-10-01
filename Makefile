@@ -12,7 +12,7 @@ DOCKER_DAEMON = docker run -d \
 	-e "HTTPS_PROXY=$(HTTPS_PROXY)" \
 	-v $(PWD):/usr/src
 
-all: docker-image reconf build dist
+all: docker-image reconf module dist
 
 # build docker image
 docker-image:
@@ -23,7 +23,7 @@ reconf:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie reconf
 
 # compile library
-build:
+module:
 	$(DOCKER_RUN) libzbxpython/build-debian-jessie make
 
 # build distribution tarball
